@@ -1,0 +1,10 @@
+[wokwi]
+version = 1
+
+board = "esp32-devkit-v1"
+diagram = "diagram.json"
+
+firmware = ".pio/build/esp32dev/firmware.bin"
+elf = ".pio/build/esp32dev/firmware.elf"
+
+simulation_time = 300000
