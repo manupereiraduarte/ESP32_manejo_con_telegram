@@ -133,10 +133,11 @@ void TelegramHelper::handleNewMessages(int numNewMessages) {
         // 5. /platiot
         else if (text == "/platiot") {
             float temp, hum;
+            float pote = readPotentiometer();
             if (readDHT22(temp, hum)) {
                 sendMessage(chat_id, "⏳ Enviando datos a ThingSpeak...");
-                if (enviarThingSpeak(thingSpeakApiKey, temp, hum)) { 
-                    sendMessage(chat_id, "✅ Datos (" + String(temp, 1) + "°C, " + String(hum, 1) + "%) enviados a ThingSpeak.");
+                if (enviarThingSpeak(thingSpeakApiKey, temp, hum, pote)) {
+                    sendMessage(chat_id, "✅ Datos (" + String(temp, 1) + "°C, " + String(hum, 1) + "%, " + String(pote, 2) + "V) enviados a ThingSpeak.");
                 } else {
                     sendMessage(chat_id, "❌ Fallo al enviar datos a ThingSpeak. Revisa la clave.");
                 }

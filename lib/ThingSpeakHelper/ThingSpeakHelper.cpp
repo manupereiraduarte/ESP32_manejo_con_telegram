@@ -1,7 +1,7 @@
 #include "ThingSpeakHelper.h"
 
 // La función ahora devuelve 'true' si el envío fue exitoso.
-bool enviarThingSpeak(const char* apiKey, float temp, float hum) {
+bool enviarThingSpeak(const char* apiKey, float temp, float hum, float pote) {
     HTTPClient http;
     
     // 1. Construcción de la URL
@@ -10,6 +10,7 @@ bool enviarThingSpeak(const char* apiKey, float temp, float hum) {
     url += apiKey; // Usamos el parámetro
     url += "&field1=" + String(temp);
     url += "&field2=" + String(hum);
+    url += "&field3=" + String(pote);
 
     // 2. Comienzo de la petición
     http.begin(url);
