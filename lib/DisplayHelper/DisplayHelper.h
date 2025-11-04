@@ -1,13 +1,12 @@
 #ifndef DISPLAYHELPER_H
 #define DISPLAYHELPER_H
 
-#include <Adafruit_SSD1306.h>
 #include <Arduino.h>
 
-// Declaración de una función para inicializar la pantalla
-bool inicializarDisplay(Adafruit_SSD1306 &display); 
+#include <U8g2lib.h> // 🚨 Cambiar librería
 
-// La función que ya tienes
-void mostrarEnDisplay(Adafruit_SSD1306 &display, String texto);
+// La función ahora recibe una referencia al objeto U8G2
+void mostrarEnDisplay(U8G2_SSD1306_128X64_NONAME_F_SW_I2C &u8g2, String texto);
+bool inicializarDisplay(U8G2_SSD1306_128X64_NONAME_F_SW_I2C &u8g2);
 
 #endif

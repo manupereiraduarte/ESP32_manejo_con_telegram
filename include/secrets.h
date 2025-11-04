@@ -2,8 +2,8 @@
 #define SECRETS_H
 
 // 1. Configuración de WiFi
-#define WIFI_SSID       "RICARDO1970"
-#define WIFI_PASSWORD   "CODY2020"
+#define WIFI_SSID       "iPhone de Manuel"
+#define WIFI_PASSWORD   "juanferquintero"
 
 // 2. Configuración de Telegram
 // ¡Reemplaza este valor con tu Token real!

@@ -4,7 +4,7 @@
 // =================================================================
 // Constructor Completo
 // =================================================================
-TelegramHelper::TelegramHelper(const char* botToken, LedControl& led23, Adafruit_SSD1306& oled, const char* tsKey, 
+TelegramHelper::TelegramHelper(const char* botToken, LedControl& led23, U8G2_SSD1306_128X64_NONAME_F_SW_I2C& oled, const char* tsKey, 
                                float (*potFunc)(), bool (*dhtFunc)(float&, float&))
     : ledGreen(led23), display(oled), thingSpeakApiKey(tsKey), 
       readPotentiometer(potFunc), readDHT22(dhtFunc) {

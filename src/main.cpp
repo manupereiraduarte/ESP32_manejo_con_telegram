@@ -3,6 +3,7 @@
 #include <Wire.h> // Para la pantalla OLED
 #include <Adafruit_SSD1306.h> // Necesario para definir la instancia de display
 #include <DHT.h> // Librería del sensor DHT (ej: Adafruit)
+#include <U8g2lib.h>
 
 // 1. INCLUSIÓN DE LIBRERÍAS PROPIAS Y SECRETOS
 #include "secrets.h" 
@@ -12,13 +13,12 @@
 
 // 2. DEFINICIÓN DE CONSTANTES
 #define LED_PIN         23  // Pin del LED que el bot controlará
-#define DHT_PIN         15  // Pin donde está conectado el DHT22
-#define POT_PIN         34  // Pin ADC para el Potenciómetro (ej: GPIO34)
+#define DHT_PIN         33  // Pin donde está conectado el DHT22
+#define POT_PIN         32  // Pin ADC para el Potenciómetro (ej: GPIO34)
+#define PIN_SCL         22
+#define PIN_SDA         21
 
-#define SCREEN_WIDTH    128 // Ancho de la pantalla OLED
-#define SCREEN_HEIGHT   64  // Alto de la pantalla OLED
-#define OLED_RESET      -1  // Pin de Reset (usa -1 si está compartido con VCC)
-#define SCREEN_ADDRESS  0x3C // Dirección I2C típica para OLED 128x64
+
 
 void handleNewMessages(int numNewMessages);
 
@@ -27,8 +27,7 @@ void handleNewMessages(int numNewMessages);
 // 3. DECLARACIÓN DE OBJETOS DE HARDWARE (LVALUES)
 // =============================================================
 // Crear el objeto OLED (¡IMPORTANTE: Debe ser global/static para el TelegramHelper!)
-Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
-
+U8G2_SSD1306_128X64_NONAME_F_SW_I2C display(U8G2_R0, PIN_SCL, PIN_SDA);
 // Crear el objeto LED (usa la clase auxiliar de TelegramHelper.h)
 LedControl led23(LED_PIN);
 
