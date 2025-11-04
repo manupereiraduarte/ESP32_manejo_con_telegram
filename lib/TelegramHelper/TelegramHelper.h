@@ -60,7 +60,7 @@ public:
 
     void inicializarConexion(const char* ssid, const char* password);
     void verificarMensajes();
-    void sendMessage(String chat_id, String text, bool useButtons = false);
+    void sendMessage(String chat_id, String text, String keyboard = "");
 };
 
 #endif
