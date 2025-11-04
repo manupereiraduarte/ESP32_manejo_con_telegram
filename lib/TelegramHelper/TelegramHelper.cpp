@@ -183,14 +183,14 @@ void TelegramHelper::handleNewMessages(int numNewMessages) {
             } else if (component == "pote") {
                 voltage = readPotentiometer();
                 msg += "\nPotenciómetro: " + String(voltage, 2) + "V";
-                mostrarEnDisplay(display, "POT:\n" + String(voltage, 2) + "V");
+                mostrarEnDisplay(display, "  POT:\n" + String(voltage, 2) + "V");
             } else if (component == "dht22") {
                 if (readDHT22(temp, hum)) {
                     msg += "\nTemp: " + String(temp, 1) + "C, Hum: " + String(hum, 1) + "%";
-                    mostrarEnDisplay(display, "T: " + String(temp, 1) + "C\nH: " + String(hum, 1) + "%");
+                    mostrarEnDisplay(display, "   T: " + String(temp, 1) + "C\n   H: " + String(hum, 1) + "%");
                 } else {
                     msg += "\nDHT22: Error de lectura.";
-                    mostrarEnDisplay(display, "DHT22\nError");
+                    mostrarEnDisplay(display, " DHT22\nError");
                 }
             } else {
                 msg = "Comando de Display no reconocido.";
