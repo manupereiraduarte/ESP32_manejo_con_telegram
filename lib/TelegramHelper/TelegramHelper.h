@@ -38,6 +38,7 @@ private:
 
     // Dependencias
     LedControl& ledGreen; 
+    LedControl& ledBlue;
     const char* thingSpeakApiKey;
 
     // Funciones del ESP32 (Callbacks)
@@ -47,12 +48,13 @@ private:
     // Funciones internas
     void handleNewMessages(int numNewMessages);
     void sendMenu(String chat_id);
-    void processLedCommand(String chat_id, String text);
+    void processLedCommand(String chat_id, String text, LedControl& targetLed);
 
 public:
     // Constructor con todas las dependencias
     TelegramHelper(const char* botToken, 
         LedControl& led23,
+        LedControl& led2,
         U8G2_SSD1306_128X64_NONAME_F_SW_I2C& oled,
         const char* tsKey, 
         float (*potFunc)(),
