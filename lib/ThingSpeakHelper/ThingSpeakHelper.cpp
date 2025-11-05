@@ -4,24 +4,24 @@
 bool enviarThingSpeak(const char* apiKey, float temp, float hum, float pote) {
     HTTPClient http;
     
-    // 1. Construcción de la URL
+    // Construcción de la URL
     String url = "http://api.thingspeak.com/update"; // Usamos HTTP simple, ya que ThingSpeak lo soporta
     url += "?api_key=";
-    url += apiKey; // Usamos el parámetro
+    url += apiKey; 
     url += "&field1=" + String(temp);
     url += "&field2=" + String(hum);
     url += "&field3=" + String(pote);
 
-    // 2. Comienzo de la petición
+    // Comienzo de la petición
     http.begin(url);
     int httpResponseCode = http.GET();
     
     bool exito = false;
 
-    // 3. Verificación de la respuesta
+    // Verificación de la respuesta
     if (httpResponseCode > 0) {
         Serial.printf("[ThingSpeak] HTTP Response code: %d\n", httpResponseCode);
-        // ThingSpeak devuelve 200 (OK) si la actualización fue exitosa
+
         if (httpResponseCode == 200) { 
             exito = true;
         }

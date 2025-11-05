@@ -1,9 +1,7 @@
 #include "TelegramHelper.h"
 #include <Arduino.h>
 
-// =================================================================
 // Constructor Completo
-// =================================================================
 TelegramHelper::TelegramHelper(const char* botToken, LedControl& led23, U8G2_SSD1306_128X64_NONAME_F_SW_I2C& oled, const char* tsKey, 
                                float (*potFunc)(), bool (*dhtFunc)(float&, float&))
     : ledGreen(led23), display(oled), thingSpeakApiKey(tsKey), 
@@ -14,9 +12,7 @@ TelegramHelper::TelegramHelper(const char* botToken, LedControl& led23, U8G2_SSD
     Serial.println("TelegramHelper inicializado con dependencias.");
 }
 
-// =================================================================
 // Conexión WiFi
-// =================================================================
 void TelegramHelper::inicializarConexion(const char* ssid, const char* password) {
     Serial.println("Iniciando conexión WiFi...");
     WiFi.begin(ssid, password);
@@ -36,9 +32,7 @@ void TelegramHelper::inicializarConexion(const char* ssid, const char* password)
     }
 }
 
-// =================================================================
-// Lógica de Envío de Mensajes y Botones (Menú)
-// =================================================================
+// Lógica de Envío de Mensajes y Botones 
 
 // Envía el menú (para /start)
 void TelegramHelper::sendMenu(String chat_id) {
@@ -48,7 +42,7 @@ void TelegramHelper::sendMenu(String chat_id) {
     menu += "3. Enviar datos a ThingSpeak.\n";
     menu += "4. Mostrar estados en Display OLED.\n";
     
-    // CONSTRUCCIÓN DEL TECLADO DESCRIPTIVO (JSON)
+    // teclado
     String keyboard = 
         "[[\"Encender LED\", \"Apagar LED\"],"
         "[\"Datos Sensor\", \"Voltaje Pote\"],"
@@ -67,9 +61,7 @@ void TelegramHelper::sendMessage(String chat_id, String text, String keyboard) {
     }
 }
 
-// =================================================================
 // Lógica de Comando LED
-// =================================================================
 void TelegramHelper::processLedCommand(String chat_id, String text) {
     int pin = 23; 
     String estado;
@@ -93,16 +85,14 @@ void TelegramHelper::processLedCommand(String chat_id, String text) {
     }
 }
 
-// =================================================================
-// Procesamiento de Comandos (handleNewMessages)
-// =================================================================
+// Procesamiento de Comandos
 void TelegramHelper::handleNewMessages(int numNewMessages) {
     for (int i = 0; i < numNewMessages; i++) {
         String chat_id = bot->messages[i].chat_id;
         String text = bot->messages[i].text;
         text.toLowerCase(); 
 
-        // 1. FASE DE MAPEO: Convertir el texto descriptivo del botón al comando /...
+        // Convertir el texto descriptivo del botón al comando.
         if (text == "encender led") {
             text = "/led23on";
         } else if (text == "apagar led") {
@@ -121,19 +111,19 @@ void TelegramHelper::handleNewMessages(int numNewMessages) {
             text = "/displaypote";
         }
         
-        // 2. FASE DE EJECUCIÓN: Procesar el comando /... resultante
+        // Procesar el comando
         
-        // 1. /start
+        // /start
         if (text == "/start" || text == "/ayuda") {
             sendMenu(chat_id);
         }
         
-        // 2. /led<pin><on/off>
+        // /led<pin><on/off>
         else if (text.startsWith("/led23")) {
             processLedCommand(chat_id, text);
         }
         
-        // 3. /dht22 (Informar Temp/Hum)
+        // /dht22 (Informar Temp/Hum)
         else if (text == "/dht22") {
             float temp, hum;
             if (readDHT22(temp, hum)) {
@@ -145,14 +135,14 @@ void TelegramHelper::handleNewMessages(int numNewMessages) {
             }
         }
         
-        // 4. /pote (Informar Voltaje)
+        // /pote (Informar Voltaje)
         else if (text == "/pote") {
             float voltage = readPotentiometer();
             String msg = "🔌 Potenciómetro: " + String(voltage, 2) + " V";
             sendMessage(chat_id, msg, "");
         }
         
-        // 5. /platiot (Enviar a ThingSpeak)
+        // /platiot (Enviar a ThingSpeak)
         else if (text == "/platiot") {
             float temp, hum;
             float pote = readPotentiometer();
@@ -169,7 +159,7 @@ void TelegramHelper::handleNewMessages(int numNewMessages) {
             }
         }
         
-        // 6. /display (Mostrar estado en OLED)
+        // /display (Mostrar estado en OLED)
         else if (text.startsWith("/display")) {
             String component = text.substring(8);
             String msg = "Actualizando Pantalla OLED...";
@@ -206,9 +196,7 @@ void TelegramHelper::handleNewMessages(int numNewMessages) {
     }
 }
 
-// =================================================================
 // Chequeo de Mensajes (loop)
-// =================================================================
 void TelegramHelper::verificarMensajes() {
     if (WiFi.status() != WL_CONNECTED) {
         return;
