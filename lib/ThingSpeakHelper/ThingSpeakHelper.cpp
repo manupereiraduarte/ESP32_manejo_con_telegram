@@ -1,27 +1,27 @@
 #include "ThingSpeakHelper.h"
 
-// devuelve 'true' si el envío fue exitoso.
+// La función ahora devuelve 'true' si el envío fue exitoso.
 bool enviarThingSpeak(const char* apiKey, float temp, float hum, float pote) {
     HTTPClient http;
     
     // 1. Construcción de la URL
-    String url = "http://api.thingspeak.com/update"; // Usamos HTTP simple por thingspeak
+    String url = "http://api.thingspeak.com/update"; // Usamos HTTP simple, ya que ThingSpeak lo soporta
     url += "?api_key=";
-    url += apiKey;
+    url += apiKey; // Usamos el parámetro
     url += "&field1=" + String(temp);
     url += "&field2=" + String(hum);
     url += "&field3=" + String(pote);
 
-    //Comienzo de la petición
+    // 2. Comienzo de la petición
     http.begin(url);
     int httpResponseCode = http.GET();
     
     bool exito = false;
 
-    // Verificación de la respuesta
+    // 3. Verificación de la respuesta
     if (httpResponseCode > 0) {
         Serial.printf("[ThingSpeak] HTTP Response code: %d\n", httpResponseCode);
-
+        // ThingSpeak devuelve 200 (OK) si la actualización fue exitosa
         if (httpResponseCode == 200) { 
             exito = true;
         }
