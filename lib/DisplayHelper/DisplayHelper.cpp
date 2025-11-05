@@ -1,15 +1,16 @@
 #include "DisplayHelper.h"
+// No es necesario incluir Wire.h, U8G2 lo maneja
 
-// Función de Inicialización
+// 1. Función de Inicialización
 bool inicializarDisplay(U8G2_SSD1306_128X64_NONAME_F_SW_I2C &u8g2) {
     u8g2.begin();
     // Configuramos una fuente y un tamaño legible
-    u8g2.setFont(u8g2_font_ncenB10_tr); 
+    u8g2.setFont(u8g2_font_ncenB10_tr); // Fuente Negrita, 10px alto
     u8g2.setContrast(100);
-    return true;
+    return true; // Asumimos éxito si U8G2 comenzó
 }
 
-// Función de Mostrar en Display (Usando Page Loop)
+// 2. Función de Mostrar en Display (Usando Page Loop)
 void mostrarEnDisplay(U8G2_SSD1306_128X64_NONAME_F_SW_I2C &u8g2, String texto) {
     
     // Dividir el String por saltos de línea (\n)

@@ -1,6 +1,7 @@
 #ifndef DISPLAYHELPER_H
 #define DISPLAYHELPER_H
 
+// 🚨 ¡CRÍTICO! U8g2lib.h DEBE estar aquí para que el compilador sepa qué es U8G2_...
 #include <U8g2lib.h> 
 #include <Arduino.h>
 
