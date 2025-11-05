@@ -1,15 +1,12 @@
 #ifndef TELEGRAMHELPER_H
 #define TELEGRAMHELPER_H
 
-// 1. Incluye las librerías necesarias para la conectividad
 #include <UniversalTelegramBot.h>
 #include <WiFiClientSecure.h>
 #include <WiFi.h>
 
-// 2. 🚨 CRÍTICO: Incluir U8g2lib.h PRIMERO para definir el tipo U8G2_...
 #include <U8g2lib.h> 
 
-// 3. Incluir tus librerías locales, que ahora pueden usar U8G2_...
 #include "DisplayHelper.h" 
 #include "ThingSpeakHelper.h"
 
@@ -24,12 +21,11 @@ public:
     bool getStatus() const { return estado; }
 };
 
-// =================================================================
+
 // Clase Principal
-// =================================================================
+
 class TelegramHelper {
 private:
-    // El tipo U8G2 ahora es reconocido gracias a la inclusión superior
     U8G2_SSD1306_128X64_NONAME_F_SW_I2C& display; 
     WiFiClientSecure secured_client;
     UniversalTelegramBot *bot;
@@ -41,7 +37,7 @@ private:
     LedControl& ledBlue;
     const char* thingSpeakApiKey;
 
-    // Funciones del ESP32 (Callbacks)
+    // Funciones del ESP32
     float (*readPotentiometer)();
     bool (*readDHT22)(float &temp, float &hum);
 
